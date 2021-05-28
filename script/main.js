@@ -7,3 +7,5 @@ let mission;
 let period;
 alert('Привет!');
 console.log('Пока!');
+console.log('Пока!');
+console.log('Пока!');
