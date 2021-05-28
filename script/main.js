@@ -1,3 +1,4 @@
+"use strict";
 let money;
 let income;
 let addExpenses;
