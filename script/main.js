@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 const money = 100000,
 income = 'ДиВиДенДы',
 addExpenses = 'Интернет, Такси, Коммуналка',
