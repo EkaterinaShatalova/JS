@@ -7,6 +7,8 @@ week['en'] = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
 let lang = prompt('Введите ru для русского, en для английского', 'ru');
 let namePerson = prompt('Введите имя Артем или Максим', 'Артем');
 
+const map = new Map([['en', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']], 
+                    ['ru', ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']]]);
 
 if (lang === 'ru') {
     console.log(week['ru']);
@@ -29,8 +31,9 @@ switch(lang) {
 
 console.log(week[lang]);
 
-let name = (namePerson === 'Артем') ? console.log('директор') : (namePerson === 'Максим') ?  console.log('преподаватель') : console.log('студент');
+console.log(map.get(lang));
 
+let name = (namePerson === 'Артем') ? console.log('директор') : (namePerson === 'Максим') ?  console.log('преподаватель') : console.log('студент');
 
 
 
