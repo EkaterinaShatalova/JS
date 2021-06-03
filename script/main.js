@@ -8,15 +8,17 @@ const isNumber = function (n) {
     };
 
 const check = function(a) {
-    let string = a;
-    if  (typeof string !== 'string' && isNumber(string)) {
+    if  (typeof a !== 'string' || isNumber(a)) {
         alert('Введены некорректные данные!');
-}  else if (string.length>30) {
-    console.log(string.trim().slice(0,30)+'...');
-} else {console.log(string.trim());
+}  else if (a.length>30) {
+    console.log(a.trim().slice(0,30)+'...');
+} else {console.log(a.trim());
 
 }}
 
 check('    ffffffffff ааааааааааа  ');
+check('5');
+
+
 
 
