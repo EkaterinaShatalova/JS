@@ -11,7 +11,7 @@ const amount1 = +prompt('Во сколько это обойдется?', '5000'
 const expenses2 = prompt('Введите обязательную статью расходов?', 'Проездной');
 const amount2 = +prompt('Во сколько это обойдется?', '1000');
 
-let accumulatedMonth = getAccumulatedMonth(money, amount1, amount2), 
+const accumulatedMonth = getAccumulatedMonth(money, amount1, amount2), 
     budgetDay = Math.floor(accumulatedMonth / 30),
     showTypeOf = function(data) {
     console.log(typeof data);
@@ -22,8 +22,8 @@ function getExpensesMonth(amount1, amount2) {
 }
 
 function getAccumulatedMonth(money, amount1, amount2) {
-    let amount = getExpensesMonth(amount1, amount2);
-    return money - amount;
+    
+    return money - getExpensesMonth(amount1, amount2);
 }
 
 function getTargetMonth() {
