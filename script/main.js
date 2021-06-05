@@ -3,12 +3,11 @@
 'use strict';
 
 const isNumber = function(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
+    return !isNaN(parseFloat(n)) && isFinite(n) ;
 };
 
-const  income = 'ДиВиДенДы',
+const income = 'ДиВиДенДы',
       mission = 300000;
-
 let money;
 let start = function() {
     money = prompt('Ваш месячный доход?','50000');
@@ -20,10 +19,9 @@ let start = function() {
     }
 };
 start();
-
-   
+  
 const addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Квартплата, проездной, кредит');
-const deposit = !!prompt('Есть ли у вас депозит в банке?', 'Нет');
+const deposit = confirm('Есть ли у вас депозит в банке?');
 
 let expenses = [];
 let exp  = [];
@@ -89,7 +87,7 @@ showTypeOf(income);
 showTypeOf(deposit);
 console.log(`Расходы за месяц: ${expensesAmount}`);
 console.log(addExpenses.toLowerCase().split(', '));
-getTargetMonth()<0 ? console.log('Цель не будет достигнута') : console.log(`Цель будет достигнута за ${getTargetMonth()} месяцев(-а)`);
+getTargetMonth() < 0 ? console.log('Цель не будет достигнута') : console.log(`Цель будет достигнута за ${getTargetMonth()} месяцев(-а)`);
 console.log(`Бюджет на день: ${budgetDay}`);
 getStatusIncome();
 
