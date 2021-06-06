@@ -13,14 +13,19 @@ arr.push('2223',
 const numbers = [2,4];
 
 for (let i = 0; i < arr.length; i++) {
-    if(numbers.includes(
-        Number(arr[i].slice(0,1))
-        ))
-    {console.log(arr[i]);}
-    
+    if(numbers.includes(Number(arr[i].slice(0,1)))) {
+        console.log(arr[i]);
+    }    
 }
 
-for(let i = 2; i <= 100; i++) {
+const filt = function(value) {
+    return numbers.includes(Number(value.slice(0,1)));
+}
+const result = arr.filter(filt);
+console.log(result);
+
+
+for (let i = 2; i <= 100; i++) {
     let number = true;
 
     for(let j = 2; j < i; j++) {
