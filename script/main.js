@@ -40,13 +40,10 @@ let appData = {
             let expenses;
             let exp;
             expenses = prompt('Введите обязательную статью расходов?');
-            exp =  prompt('Во сколько это обойдется?', '2000');
-            if (!isNumber(exp)) {
             do {
                 exp = prompt('Во сколько это обойдется?', '2000');
             }
             while(!isNumber(exp));
-            }
             appData.expenses[expenses] = exp;   
         }
     },
