@@ -8,8 +8,7 @@ const isNumber = function(n) {
 let money;
 
 let start = function() {
-    money = prompt('Ваш месячный доход?','50000');
-    if (!isNumber(money)) {
+    {
         do {
             money = prompt('Ваш месячный доход?','50000');
         }
@@ -38,17 +37,17 @@ let appData = {
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
         for (let i = 0; i < 2; i++) {
-            let expenses = [];
-            let exp = [];
-            expenses[i] = prompt('Введите обязательную статью расходов?');
-            exp[i] =  prompt('Во сколько это обойдется?', '2000');
-            if (!isNumber(exp[i])) {
+            let expenses;
+            let exp;
+            expenses = prompt('Введите обязательную статью расходов?');
+            exp =  prompt('Во сколько это обойдется?', '2000');
+            if (!isNumber(exp)) {
             do {
-                exp[i] = prompt('Во сколько это обойдется?', '2000');
+                exp = prompt('Во сколько это обойдется?', '2000');
             }
-            while(!isNumber(exp[i]));
+            while(!isNumber(exp));
             }
-            appData.expenses[expenses[i]] = exp[i];   
+            appData.expenses[expenses] = exp;   
         }
     },
 
