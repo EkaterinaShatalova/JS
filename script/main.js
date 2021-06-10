@@ -7,7 +7,7 @@ const isNumber = function(n) {
 };
 let money;
 
-let start = function() {
+const start = function() {
     {
         do {
             money = prompt('Ваш месячный доход?','50000');
