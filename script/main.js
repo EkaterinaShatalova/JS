@@ -18,7 +18,7 @@ const start = function() {
 };
 start();
 
-let appData = {
+const appData = {
     income: {},
     addIncome: [],
     expenses: {},
@@ -40,7 +40,7 @@ let appData = {
             do {
                 itemIncome = prompt('Какой у вас доп заработок?', 'Фриланс');
             }
-            while (isNumber(itemIncome));
+            while (isNumber(itemIncome) || itemIncome == 0);
 
             do {
                 cashIncome = prompt('Сколько вы на этом зарабатываете?', 10000);
@@ -52,7 +52,7 @@ let appData = {
         do {
             addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Квартплата, проездной, кредит');
         }
-            while (isNumber(addExpenses));
+        while (isNumber(addExpenses) || addExpenses == 0);
         appData.addExpenses = addExpenses.split(', ').map(elem => elem[0].toUpperCase() + elem.toLowerCase().substring(1)).join(', ');
         
         for (let i = 0; i < 2; i++) {
@@ -107,7 +107,7 @@ let appData = {
             do {
                 dep = prompt('Введите сумму депозита?', 20000);
             }
-            while(!isNumber(dep));
+            while(!isNumber(dep) || dep == 0);
 
             appData.moneyDeposit =+dep;
             let perc;
