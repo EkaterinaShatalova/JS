@@ -3,10 +3,7 @@
 'use strict';
 
 const isNumber = function(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n) && parseFloat(n) > 0 ;
-};
-const isNumber1 = function(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
+    return !isNaN(parseFloat(n)) && isFinite(n) ;
 };
 
 let money;
@@ -43,19 +40,19 @@ let appData = {
             do {
                 itemIncome = prompt('Какой у вас доп заработок?', 'Фриланс');
             }
-            while (isNumber1(itemIncome));
+            while (isNumber(itemIncome));
 
             do {
                 cashIncome = prompt('Сколько вы на этом зарабатываете?', 10000);
             }
-             while (!isNumber(cashIncome));
+            while (!isNumber(cashIncome));
             appData.income[itemIncome] = cashIncome;
         }
         let addExpenses;
         do {
             addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую', 'Квартплата, проездной, кредит');
         }
-            while (isNumber1(addExpenses));
+            while (isNumber(addExpenses));
         appData.addExpenses = addExpenses.split(', ').map(elem => elem[0].toUpperCase() + elem.toLowerCase().substring(1)).join(', ');
         
         for (let i = 0; i < 2; i++) {
