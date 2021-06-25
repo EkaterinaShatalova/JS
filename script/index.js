@@ -94,7 +94,7 @@ const appData = {
         resAddExpenses.value = appData.addExpenses.join(', ');
         resTargetMonth.value = appData.targetMonth;
         resIncomePeriod.value = appData.calcSavedMoney();  
-        period.addEventListener('change', function() {
+        period.addEventListener('input', function() {
             resIncomePeriod.value = appData.calcSavedMoney();   
         });
 
@@ -193,28 +193,34 @@ const appData = {
 };
 
 
-period.addEventListener('change', function() {
+period.addEventListener('input', function() {
     periodAmount.innerText = period.value;
 });
 btnStart.addEventListener('click', appData.start);
 btnPlusIncome.addEventListener('click', appData.addIncomeBlock);
 btnPlusExpenses.addEventListener('click', appData.addExpensesBlock);
-btnStart.setAttribute('disabled', 'disabled');  
 
+btnStart.setAttribute('disabled', 'disabled');  
 salaryAmount.addEventListener('input', function() {
     if(salaryAmount.value == 0) {
         btnStart.setAttribute('disabled', 'disabled'); 
     } else {btnStart.removeAttribute('disabled');}
 });
 
-//ограничение на ввод
-incomeTitle.setAttribute('pattern', '^[А-Яа-яЁё\s]+$');
-incomeAmount.setAttribute('pattern', '^[ 0-9]+$');
+const allTitles = document.querySelectorAll('input[placeholder="Наименование"]');
+const allSums = document.querySelectorAll('input[placeholder="Сумма"]');
 
-incomeTitle.addEventListener('input',()=> {
-    incomeTitle.value = incomeTitle.value.replace(/[^а-я]/,'');
-})
+Array.from(allTitles).forEach(function(item){
+    item.addEventListener('input', function() {
+        item.value = item.value.replace(/[^.\,\-_\'\"\?\!\: А-Яа-я()]/gi, "" );
+    });
+});
 
+Array.from(allSums).forEach(function(item){
+    item.addEventListener('input', function() {
+        item.value = item.value.replace(/[^0-9]/, "" );
+    });
+});
 
 
 
