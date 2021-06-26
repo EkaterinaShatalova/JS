@@ -32,7 +32,22 @@ const  periodAmount = document.querySelector('.period-amount');
 const isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n) ;
 };
-
+const check = function() {
+    const allTitles = document.querySelectorAll('input[placeholder="Наименование"]');
+    const allSums = document.querySelectorAll('input[placeholder="Сумма"]');
+    
+    Array.from(allTitles).forEach(function(item){
+        item.addEventListener('input', function() {
+            item.value = item.value.replace(/[^.\,\-_\'\"\?\!\: А-Яа-я()]/gi, "" );
+        });
+    });
+    
+    Array.from(allSums).forEach(function(item){
+        item.addEventListener('input', function() {
+            item.value = item.value.replace(/[^0-9]/, "" );
+        });
+    });
+};
 const appData = {
     income: {},
     addIncome: [],
@@ -59,6 +74,7 @@ const appData = {
         if (incomeItems.length === 3) {
             btnPlusIncome.style.display = 'none';
         }
+        check();
     },
     addExpensesBlock: function() {
         let cloneExpensesItems = expensesItems[0].cloneNode(true);
@@ -71,6 +87,7 @@ const appData = {
         if (expensesItems.length === 3) {
             btnPlusExpenses.style.display = 'none';
         }
+        check();
     },
     start:  function() {
         appData.budget = salaryAmount.value;
@@ -85,6 +102,7 @@ const appData = {
         appData.calcSavedMoney();
         appData.getStatusIncome();
         appData.showResults();
+        
     },
     showResults: function(){
         budgetMonth.value = appData.budgetMonth;
@@ -207,20 +225,10 @@ salaryAmount.addEventListener('input', function() {
     } else {btnStart.removeAttribute('disabled');}
 });
 
-const allTitles = document.querySelectorAll('input[placeholder="Наименование"]');
-const allSums = document.querySelectorAll('input[placeholder="Сумма"]');
+check();
 
-Array.from(allTitles).forEach(function(item){
-    item.addEventListener('input', function() {
-        item.value = item.value.replace(/[^.\,\-_\'\"\?\!\: А-Яа-я()]/gi, "" );
-    });
-});
 
-Array.from(allSums).forEach(function(item){
-    item.addEventListener('input', function() {
-        item.value = item.value.replace(/[^0-9]/, "" );
-    });
-});
+
 
 
 
