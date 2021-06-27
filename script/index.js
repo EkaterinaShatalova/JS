@@ -293,12 +293,10 @@ AppData.prototype.calcSavedMoney = function() {
 AppData.prototype.eventListeners = function() {
     const _this = this;
     _this.check();
-
     period.addEventListener('input', function() {
         periodAmount.innerText = period.value;
     });   
     btnStart.addEventListener('click', _this.start.bind(_this));
-
     btnCancel.addEventListener('click', _this.reset.bind(_this));
     btnPlusIncome.addEventListener('click', _this.addIncomeBlock.bind(_this));
     btnPlusExpenses.addEventListener('click', _this.addExpensesBlock.bind(_this));
