@@ -29,7 +29,7 @@ const btnStart = document.getElementById('start');
 const period = document.querySelector('.period-select');
 const periodAmount = document.querySelector('.period-amount');
 const btnCancel = document.getElementById('cancel');
-const expenses = document.querySelector('.expenses');
+
 
 const isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n) ;
@@ -107,8 +107,13 @@ const appData = {
         this.showResults();
         btnStart.style.display = 'none';
         btnCancel.style.display = 'inline';
+        const textInputs = document.querySelectorAll('input[type = text]');
+        textInputs.forEach(function(item) {
+            item.setAttribute('disabled', 'disabled');
+        });
+
     },
-    
+
     reset: function() {
         this.income = {};
         this.addIncome= [];
@@ -155,6 +160,10 @@ const appData = {
             incomeItems[2].remove();
             btnPlusIncome.style.display = 'inline';
             }
+        const textInputs = document.querySelectorAll('input[type = text]');
+        textInputs.forEach(function(item) {
+            item.removeAttribute('disabled', 'disabled');
+        });
     },
         
     showResults: function(){
