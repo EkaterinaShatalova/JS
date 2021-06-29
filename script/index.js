@@ -101,7 +101,6 @@ const appData = {
         this.getAddExpenses();
         this.getBudget();
         this.getTargetMonth();
-        // appData.getInfoDeposit();
         this.calcSavedMoney();
         this.getStatusIncome();
         this.showResults();
@@ -174,26 +173,26 @@ const appData = {
         resAddExpenses.value = this.addExpenses.join(', ');
         resTargetMonth.value = this.targetMonth;
         resIncomePeriod.value = this.calcSavedMoney();  
-        period.addEventListener('input', function() {
-            resIncomePeriod.value = appData.calcSavedMoney();   
+        period.addEventListener('input', () => {
+            resIncomePeriod.value = this.calcSavedMoney();   
         });
 
     },
     getIncomes: function(){
-        incomeItems.forEach(function(item) {
+        incomeItems.forEach((item) => {
         let itemIncome = item.querySelector('.income-title');
         let cashIncome = item.querySelector('.income-amount');
         if (isNumber(cashIncome.value) && itemIncome.value != 0)  {
-            appData.income[itemIncome.value] = cashIncome.value;
+            this.income[itemIncome.value] = cashIncome.value;
         }
         });
     },
     getExpenses: function(){
-        expensesItems.forEach(function(item) {
+        expensesItems.forEach((item) => {
         let itemExpense = item.querySelector('.expenses-title');
         let cashExpense = item.querySelector('.expenses-amount');
         if (isNumber(cashExpense.value) && itemExpense.value != 0)  {
-            appData.expenses[itemExpense.value] = cashExpense.value;
+            this.expenses[itemExpense.value] = cashExpense.value;
         }
         });
     },
@@ -256,23 +255,6 @@ const appData = {
         
             default: 
                 console.log('Что то пошло не так');   
-        }
-    },
-    getInfoDeposit: function() {
-        appData.deposit = confirm('Есть ли у вас депозит в банке?');
-        if(appData.deposit) {
-            let dep;
-            do {
-                dep = prompt('Введите сумму депозита?', 20000);
-            }
-            while(!isNumber(dep) || dep == 0);
-            appData.moneyDeposit =+dep;
-            let perc;
-            do {
-                perc = prompt('Введите % депозита', 10);
-            }
-            while(!isNumber(perc) || perc >  100);
-            appData.percentDeposit = +perc;
         }
     },
     calcSavedMoney: function() {
