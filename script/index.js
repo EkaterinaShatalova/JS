@@ -75,6 +75,7 @@ class AppData {
             item.value = '';
             }
         items[0].parentNode.insertBefore(cloneItems, event.target);
+
         items =  document.querySelectorAll(`.${startStr}-items`);
         if (items.length === 3) {
             event.target.style.display = 'none';
@@ -112,7 +113,7 @@ class AppData {
         this.budgetMonth= 0;
         this.expensesMonth= 0;
         this.targetMonth= 0;
-        this.incomesMonth=0;
+        this.incomeMonth=0;
         const allTitles = document.querySelectorAll('input[placeholder="Наименование"]');
         const allSums = document.querySelectorAll('input[placeholder="Сумма"]');
         allTitles.forEach((item) => {
@@ -174,6 +175,8 @@ class AppData {
                 this[`${startStr}Month`] += +itemAmount.value;
             }
         };
+        incomeItems =  document.querySelectorAll('.income-items');
+        expensesItems =  document.querySelectorAll('.expenses-items');
         incomeItems.forEach(count);
         expensesItems.forEach(count);
     }
