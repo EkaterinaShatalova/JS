@@ -25,7 +25,6 @@ const newYearRemaining = function() {
         }
         return ending;
     };
-    console.log(remaining.toString()[remaining.toString().length - 1]);
 
     const dayEnding = function(param) {
         let ending;
