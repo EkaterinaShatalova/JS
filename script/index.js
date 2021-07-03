@@ -41,5 +41,5 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         };
     };
-    // countTimer('3 july 2021 15:13:00');
+    countTimer('5 july 2021 15:13:00');
 });
