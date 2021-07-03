@@ -44,5 +44,4 @@ const newYearRemaining = function() {
     remainingMessage.innerText = `До нового года осталось: ${remaining} ${dayEnding(remaining)}`;
 
 };
-
 newYearRemaining();
