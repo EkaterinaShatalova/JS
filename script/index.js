@@ -19,15 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const hours = Math.floor((timeRemaining / 60 / 60));
             return { timeRemaining, hours, minutes, seconds };
         };
-        const zeroBegin = function(elem) {
-            let begin;
-            if (elem.toString() === elem.toString()[0]) {
-                begin = '0';
-            } else {
-                begin = '';
-            }
-            return begin + elem.toString();
-        };
+        const zeroBegin = elem => elem < 10 ? `0${elem}` : elem;
         function updateClock() {
             const timer = getTimeRemaining();
             timerMinutes.textContent = zeroBegin(timer.minutes);

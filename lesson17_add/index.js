@@ -26,22 +26,12 @@ const newYearRemaining = function() {
         return ending;
     };
 
-    const dayEnding = function(param) {
-        let ending;
-        if (param.toString()[param.toString().length - 1].includes(['2', '3', '4']) ) {
-            ending = 'дня';
-        } else if (param.toString()[param.toString().length - 1] === '1') {
-            ending = 'день';
-        } else {
-            ending = 'дней';
-        }
-        return ending;
-    };
-
+    const ending = (number, txt, cases = [2, 0, 1, 1, 1, 2]) => txt[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
     helloMessage.innerText = `Добр${helloEnding(dayInterval)} ${dayInterval}`;
     todayMessage.innerText = `Сегодня: ${day}`;
     timeMessage.innerText = `Текущее время: ${time}`;
-    remainingMessage.innerText = `До нового года осталось: ${remaining} ${dayEnding(remaining)}`;
+    remainingMessage.innerText = `До нового года осталось: ${remaining} ${ending(remaining, ['день', 'дня', 'дней'])}`;
 
 };
+
 newYearRemaining();
