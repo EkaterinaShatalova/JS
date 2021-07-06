@@ -42,40 +42,20 @@ window.addEventListener('DOMContentLoaded', () => {
         const btnMenu = document.querySelector('.menu');
         const menu = document.querySelector('menu');
         const menuItems = menu.querySelectorAll('ul>li>a');
-        const animation = () => {
-            menu.style.left = 0;
-            let count = 0;
-            let flyInterval;
-            const flyAnimate = function() {
-                count++;
-                flyInterval = requestAnimationFrame(flyAnimate);
-                if (count * 100 <= document.documentElement.clientWidth) {
-                    menu.style.left = (count * 100 + document.documentElement.clientWidth % 100) + 'px';
-                } else {
-                    cancelAnimationFrame(flyInterval);
-                }
-            };
-            flyInterval = requestAnimationFrame(flyAnimate);
-        };
+
         const handlerMenu = () => {
-            if (document.documentElement.clientWidth > 768) {
-                menu.style.display = 'block';
-                animation();
-            } else {
-                menu.style.display = 'block';
-                menu.style.left = document.documentElement.clientWidth + 'px';
-            }
+            menu.classList.toggle('active-menu');
         };
         btnMenu.addEventListener('click', () => {
             handlerMenu();
         });
         const closeBtn = document.querySelector('.close-btn');
         closeBtn.addEventListener('click', () => {
-            menu.style.display = 'none';
+            handlerMenu();
         });
         menuItems.forEach(
             item => item.addEventListener('click', () => {
-                menu.style.left = 0;
+                handlerMenu();
             }));
     };
     toggleMenu();
@@ -83,11 +63,34 @@ window.addEventListener('DOMContentLoaded', () => {
     //popup
     const togglePopup = () => {
         const popup = document.querySelector('.popup');
+        const popupContent = document.querySelector('.popup-content');
         const popupBtn = document.querySelectorAll('.popup-btn');
         const popupClose = document.querySelector('.popup-close');
+        const animation = () => {
+            popup.style.left = 0;
+            popupContent.style.left = 0;
+            let count = 0;
+            let flyInterval;
+            const flyAnimate = function() {
+                count++;
+                flyInterval = requestAnimationFrame(flyAnimate);
+                if (count * 70 <= document.documentElement.clientWidth / 2) {
+                    popupContent.style.left = count * 70 + 'px';
+                } else {
+                    cancelAnimationFrame(flyInterval);
+                }
+            };
+            flyInterval = requestAnimationFrame(flyAnimate);
+        };
         popupBtn.forEach(elem => {
             elem.addEventListener('click', () => {
-                popup.style.display = 'block';
+                if (document.documentElement.clientWidth >= 768) {
+                    popup.style.display = 'block';
+                    animation();
+                    popup.style.height = `${document.documentElement.clientHeight}px`;
+                } else {
+                    popup.style.display = 'block';
+                }
             });
         });
         popupClose.addEventListener('click', () => {
