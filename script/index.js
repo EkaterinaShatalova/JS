@@ -87,6 +87,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     popup.style.height = `${document.documentElement.clientHeight}px`;
                 } else {
                     popup.style.display = 'block';
+                    popupContent.style.left = `${document.documentElement.clientWidth/2}px`;
                 }
             } else if (event.target.classList.contains('popup-close')) {
                 popup.style.display = 'none';
