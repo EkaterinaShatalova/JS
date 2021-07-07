@@ -39,24 +39,37 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //меню
     const toggleMenu = () => {
-        const btnMenu = document.querySelector('.menu');
         const menu = document.querySelector('menu');
-        const menuItems = menu.querySelectorAll('ul>li>a');
+        const btn = document.querySelector('main').querySelector('a');
 
         const handlerMenu = () => {
             menu.classList.toggle('active-menu');
         };
-        btnMenu.addEventListener('click', () => {
-            handlerMenu();
-        });
-        const closeBtn = document.querySelector('.close-btn');
-        closeBtn.addEventListener('click', () => {
-            handlerMenu();
-        });
-        menuItems.forEach(
-            item => item.addEventListener('click', () => {
+
+        document.addEventListener('click', event => {
+            if (event.target.closest('a') === btn) {
+                event.preventDefault();
+                const id = btn.getAttribute('href');
+                document.querySelector(id).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            } else if (event.target.closest('div')) {
+                if (event.target.closest('div').classList.contains('menu')) {
+                    handlerMenu();
+                }
+            } else if (event.target.classList.contains('close-btn')) {
                 handlerMenu();
-            }));
+            } else if (event.target.closest('menu')) {
+                event.preventDefault();
+                handlerMenu();
+                const id = event.target.getAttribute('href');
+                document.querySelector(id).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
     };
     toggleMenu();
 
@@ -72,14 +85,14 @@ window.addEventListener('DOMContentLoaded', () => {
                 count++;
                 flyInterval = requestAnimationFrame(flyAnimate);
                 if (count * 30 <= document.documentElement.getBoundingClientRect().width / 2) {
-                    popupContent.style.left = count * 30 + 'px';
+                    popupContent.style.left = `${count * 30}px`;
                 } else {
                     cancelAnimationFrame(flyInterval);
                 }
             };
             flyInterval = requestAnimationFrame(flyAnimate);
         };
-        document.addEventListener('click', (event) => {
+        document.addEventListener('click', event => {
             if (event.target.classList.contains('popup-btn')) {
                 if (document.documentElement.clientWidth >= 768) {
                     popup.style.display = 'block';
