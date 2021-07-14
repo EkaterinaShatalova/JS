@@ -54,9 +54,9 @@ window.addEventListener('DOMContentLoaded', () => {
                     behavior: 'smooth',
                     block: 'start'
                 });
+            }
             // eslint-disable-next-line max-len
-            } else if (target.closest('div.menu') || target.classList.contains('close-btn') || (!target.closest('menu') && menu.classList.contains('active-menu'))
-            ) {
+            else if (target.closest('div.menu') || target.classList.contains('close-btn') || (!target.closest('menu') && menu.classList.contains('active-menu')) || (target.closest('a') === btn) && menu.classList.contains('active-menu')) {
                 handlerMenu();
             } else if (target.closest('ul.menu')) {
                 handlerMenu();
