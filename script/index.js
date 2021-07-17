@@ -152,7 +152,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const slide = document.querySelectorAll('.portfolio-item');
         const slider = document.querySelector('.portfolio-content');
         const dotsList = document.querySelector('.portfolio-dots');
-        function insertBeforeEnd() {
+        const insertBeforeEnd = () => {
             let i = 0;
             while (i < slide.length) {
                 const li = document.createElement("li");
@@ -160,7 +160,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 dotsList.insertAdjacentElement('afterbegin', li);
                 i++;
             }
-        }
+        };
         insertBeforeEnd();
         const dot = document.querySelectorAll('.dot');
         let currentSlide = 0;
