@@ -190,7 +190,7 @@ window.addEventListener('DOMContentLoaded', () => {
         };
         slider.addEventListener('click', event => {
             event.preventDefault();
-            let target = event.target;
+            const target = event.target;
             if (!target.matches('.portfolio-btn, .dot')) {
                 return;
             }
