@@ -165,6 +165,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const dot = document.querySelectorAll('.dot');
         let currentSlide = 0;
         let interval;
+        dot[0].classList.add('dot-active');
         const prevSlide = (elem, index, strClass) => {
             elem[index].classList.remove(strClass);
         };
@@ -229,7 +230,49 @@ window.addEventListener('DOMContentLoaded', () => {
         startSlide(1500);
     };
     slider();
+
+    const command =  () => {
+        const command = document.querySelectorAll('.command__photo');
+        let photo;
+        command.forEach(item => {
+            item.addEventListener('mouseover', event => {
+                photo = event.target.src;
+                event.target.src = event.target.dataset.img;
+            });
+            item.addEventListener('mouseout', event => {
+                event.target.src = photo;
+            });
+        });
+    };
+    command();
+    const check = () => {
+        document.addEventListener('input', event => {
+            const target = event.target;
+            if (target.classList.contains('calc-item')) {
+                target.value = target.value.replace(/\D/, "");
+            } else if (target.name === "user_name") {
+                target.value = target.value.replace(/[^А-Яа-я() -]/gi, "");
+            } else if (target.name === "user_phone") {
+                target.value = target.value.replace(/[^0-9()-]/, "");
+            } else if (target.name === "user_email") {
+                target.value = target.value.replace(/[^A-Za-z-_!~@'\.\*]/gi, "");
+            } else if (target.name === "user_message") {
+                target.value = target.value.replace(/[^А-Яа-я() \-]/gi, "");
+            }
+        });
+        document.addEventListener('blur', event => {
+            event.target.value  = event.target.value.replace(/^[\s-]+/, '');
+            event.target.value  = event.target.value.replace(/[\s-]+$/, '');
+            event.target.value  = event.target.value.replace(/-+/g, '-');
+            event.target.value  = event.target.value.replace(/\s+/g, ' ');
+            if (event.target.name === "user_name") {
+                event.target.value = event.target.value.split(' ').map(elem => elem[0].toUpperCase() + elem.toLowerCase().substring(1)).join(' ');
+            }
+        }, true);
+    };
+    check();
 });
+
 
 
 
