@@ -278,7 +278,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const calcSquare = document.querySelector('.calc-square');
         const calcCount = document.querySelector('.calc-count');
         const calcDay = document.querySelector('.calc-day');
-        const calcTotal = document.querySelector('.calc-total');
+        const calcTotal = document.getElementById('total');
         const countSum = () => {
             let total = 0;
             let countValue = 1;
