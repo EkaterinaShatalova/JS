@@ -353,23 +353,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 elem.reset();
             });
         });
-            // const body = {};
-            
-			// formData.forEach((val, key) => {
-			// 	body[key] = val;
-			// });
-			// form.reset();
-            // form.appendChild(statusMessage);
-            // const request = new XMLHttpRequest();
-            // console.log(request);
-            // request.addEventListener('readystatechange', () => {
-            //     console.log(request.readyState);
-            // });
-            // request.open('POST', './server.php');
-            // request.setRequestHeader('Content-Type', 'multipart/form-data');
-            // const formData = new FormData(form);
-            // request.send(formData);
-            // console.log(formData);
     };
     sendForm();
 });
