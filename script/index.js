@@ -45,10 +45,19 @@ window.addEventListener('DOMContentLoaded', () => {
         const handlerMenu = () => {
             menu.classList.toggle('active-menu');
         };
+        
         const scroll = event => {
-            event.preventDefault();
             const target = event.target;
-            if (target.closest('a') === btn) {
+            if (target.closest('a') === btn && !menu.classList.contains('active-menu')) {
+                event.preventDefault();
+                const id = btn.getAttribute('href');
+                document.querySelector(id).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            } else if ((target.closest('a') === btn) && menu.classList.contains('active-menu')) {
+                event.preventDefault();
+                handlerMenu();
                 const id = btn.getAttribute('href');
                 document.querySelector(id).scrollIntoView({
                     behavior: 'smooth',
@@ -56,9 +65,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 });
             }
             // eslint-disable-next-line max-len
-            else if (target.closest('div.menu') || target.classList.contains('close-btn') || (!target.closest('menu') && menu.classList.contains('active-menu')) || (target.closest('a') === btn) && menu.classList.contains('active-menu')) {
+            else if (target.closest('div.menu') || target.classList.contains('close-btn') || (!target.closest('menu') && menu.classList.contains('active-menu'))) {
+                event.preventDefault();
                 handlerMenu();
             } else if (target.closest('ul.menu')) {
+                event.preventDefault();
                 handlerMenu();
                 const id = target.getAttribute('href');
                 document.querySelector(id).scrollIntoView({
@@ -68,6 +79,7 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         };
         document.addEventListener('click', scroll);
+
     };
     toggleMenu();
 
@@ -251,13 +263,13 @@ window.addEventListener('DOMContentLoaded', () => {
             if (target.classList.contains('calc-item')) {
                 target.value = target.value.replace(/\D\./, "");
             } else if (target.name === "user_name") {
-                target.value = target.value.replace(/[^А-Яа-я() -]/gi, "");
+                target.value = target.value.replace(/[^А-Яа-я ]/gi, "");
             } else if (target.name === "user_phone") {
-                target.value = target.value.replace(/[^0-9()-]/, "");
+                target.value = target.value.replace(/[^0-9+]/, "");
             } else if (target.name === "user_email") {
                 target.value = target.value.replace(/[^A-Za-z-_!~@'\.\*]/gi, "");
             } else if (target.name === "user_message") {
-                target.value = target.value.replace(/[^А-Яа-я() \-]/gi, "");
+                target.value = target.value.replace(/[^А-Яа-я 0-9 \-\.\,\!\?\:\;\"]/gi, "");
             }
         });
         document.addEventListener('blur', event => {
@@ -306,6 +318,61 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     };
     calc(100);
+
+    const sendForm = () => {
+        const errorMessage = 'Что-то пошло не так...';
+        const loadMessage = 'Загрузка...';
+        const successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+        const form = document.querySelectorAll('form');
+        const statusMessage = document.createElement('div');
+        statusMessage.style.cssText = 'font-size: 2rem';
+        form.forEach(elem => {
+            elem.addEventListener('submit', event => {
+                event.preventDefault();
+                elem.appendChild(statusMessage);
+                const request = new XMLHttpRequest();
+                request.addEventListener('readystatechange', () => {
+                    statusMessage.textContent = loadMessage;
+                    if (request.readyState !== 4) {
+                        return;
+                    }
+                    if (request.status === 200) {
+                        statusMessage.textContent = successMessage;
+                    } else {
+                        statusMessage.textContent = errorMessage;
+                    }
+                });
+                request.open('POST', './server.php');
+                request.setRequestHeader('Content-Type', 'application/json');
+                const formData = new FormData(elem);
+                let body = {};
+                for (let val of formData.entries()) {
+                    body[val[0]] = val[1];
+                }
+                console.log(body);
+                request.send(JSON.stringify(body));
+                elem.reset();
+            });
+        });
+            // const body = {};
+            
+			// formData.forEach((val, key) => {
+			// 	body[key] = val;
+			// });
+			// form.reset();
+            // form.appendChild(statusMessage);
+            // const request = new XMLHttpRequest();
+            // console.log(request);
+            // request.addEventListener('readystatechange', () => {
+            //     console.log(request.readyState);
+            // });
+            // request.open('POST', './server.php');
+            // request.setRequestHeader('Content-Type', 'multipart/form-data');
+            // const formData = new FormData(form);
+            // request.send(formData);
+            // console.log(formData);
+    };
+    sendForm();
 });
 
 
