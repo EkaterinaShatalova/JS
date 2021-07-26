@@ -267,6 +267,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 target.value = target.value.replace(/[^0-9+]/, "");
             } else if (target.name === "user_email") {
                 target.value = target.value.replace(/[^A-Za-z-_!~@'\.\*]/gi, "");
+                const emailPattern = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z-]+\.[a-zA-Z]{2,3}$/);
+                if (!emailPattern.test(event.target.value)) {
+                    event.target.value = '';
+                    alert('Введите корректный email');
+                }
             } else if (target.name === "user_message") {
                 target.value = target.value.replace(/[^А-Яа-я 0-9 \-\.\,\!\?\:\;\"]/gi, "");
             }
@@ -278,17 +283,6 @@ window.addEventListener('DOMContentLoaded', () => {
             event.target.value  = event.target.value.replace(/\s+/g, ' ');
             if (event.target.name === "user_name") {
                 event.target.value = event.target.value.split(' ').map(elem => elem[0].toUpperCase() + elem.toLowerCase().substring(1)).join(' ');
-            }
-            if (event.target.name === 'user_email') {
-                const emailPattern = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z-]+\.[a-zA-Z]{2,3}$/);
-                if (!emailPattern.test(event.target.value)) {
-                    event.target.setAttribute('required', 'required');
-                    event.target.style.border = 'solid red';
-                    event.target.value = '';
-                } else {
-                    event.target.removeAttribute('required', 'required');
-                    event.target.style.border = '';
-                }
             }
         }, true);
     };
