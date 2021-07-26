@@ -324,12 +324,12 @@ window.addEventListener('DOMContentLoaded', () => {
     calc(100);
 
     const sendForm = () => {
+        const errorMessage = 'Что-то пошло не так...';
+        const loadMessage = 'Загрузка...';
+        const successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+        const statusMessage = document.createElement('div');
+        statusMessage.style.cssText = 'font-size: 2rem';
         document.addEventListener('submit', event => {
-            const errorMessage = 'Что-то пошло не так...';
-            const loadMessage = 'Загрузка...';
-            const successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
-            const statusMessage = document.createElement('div');
-            statusMessage.style.cssText = 'font-size: 2rem';
             event.preventDefault();
             event.target.appendChild(statusMessage);
             const request = new XMLHttpRequest();
