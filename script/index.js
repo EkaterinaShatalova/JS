@@ -279,6 +279,17 @@ window.addEventListener('DOMContentLoaded', () => {
             if (event.target.name === "user_name") {
                 event.target.value = event.target.value.split(' ').map(elem => elem[0].toUpperCase() + elem.toLowerCase().substring(1)).join(' ');
             }
+            if (event.target.name === 'user_email') {
+                const emailPattern = new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z-]+\.[a-zA-Z]{2,3}$/);
+                if (!emailPattern.test(event.target.value)) {
+                    event.target.setAttribute('required', 'required');
+                    event.target.style.border = 'solid red';
+                    event.target.value = '';
+                } else {
+                    event.target.removeAttribute('required', 'required');
+                    event.target.style.border = '';
+                }
+            }
         }, true);
     };
     check();
@@ -319,39 +330,35 @@ window.addEventListener('DOMContentLoaded', () => {
     calc(100);
 
     const sendForm = () => {
-        const errorMessage = 'Что-то пошло не так...';
-        const loadMessage = 'Загрузка...';
-        const successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
-        const form = document.querySelectorAll('form');
-        const statusMessage = document.createElement('div');
-        statusMessage.style.cssText = 'font-size: 2rem';
-        form.forEach(elem => {
-            elem.addEventListener('submit', event => {
-                event.preventDefault();
-                elem.appendChild(statusMessage);
-                const request = new XMLHttpRequest();
-                request.addEventListener('readystatechange', () => {
-                    statusMessage.textContent = loadMessage;
-                    if (request.readyState !== 4) {
-                        return;
-                    }
-                    if (request.status === 200) {
-                        statusMessage.textContent = successMessage;
-                    } else {
-                        statusMessage.textContent = errorMessage;
-                    }
-                });
-                request.open('POST', './server.php');
-                request.setRequestHeader('Content-Type', 'application/json');
-                const formData = new FormData(elem);
-                let body = {};
-                for (let val of formData.entries()) {
-                    body[val[0]] = val[1];
+        document.addEventListener('submit', event => {
+            const errorMessage = 'Что-то пошло не так...';
+            const loadMessage = 'Загрузка...';
+            const successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+            const statusMessage = document.createElement('div');
+            statusMessage.style.cssText = 'font-size: 2rem';
+            event.preventDefault();
+            event.target.appendChild(statusMessage);
+            const request = new XMLHttpRequest();
+            request.addEventListener('readystatechange', () => {
+                statusMessage.textContent = loadMessage;
+                if (request.readyState !== 4) {
+                    return;
                 }
-                console.log(body);
-                request.send(JSON.stringify(body));
-                elem.reset();
+                if (request.status === 200) {
+                    statusMessage.textContent = successMessage;
+                } else {
+                    statusMessage.textContent = errorMessage;
+                }
             });
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
+            const formData = new FormData(event.target);
+            let body = {};
+            for (let val of formData.entries()) {
+                body[val[0]] = val[1];
+            }
+            request.send(JSON.stringify(body));
+            event.target.reset();
         });
     };
     sendForm();
