@@ -360,8 +360,9 @@ window.addEventListener('DOMContentLoaded', () => {
             .then(() => {
                 statusMessage.textContent = successMessage;
             })
-            .catch(() => {
+            .catch(error => {
 			    statusMessage.textContent = errorMessage;
+                console.error(error);
 				});
         });
     };
