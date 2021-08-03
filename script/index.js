@@ -334,34 +334,24 @@ window.addEventListener('DOMContentLoaded', () => {
             event.target.appendChild(statusMessage);
             statusMessage.textContent = loadMessage;
             const formData = new FormData(event.target);
-            const body = {};
-            for (let val of formData.entries()) {
-                body[val[0]] = val[1];
-            }
             event.target.reset();
-            const promise = body =>
-                new Promise((resolve, reject) => {
-                const request = new XMLHttpRequest();
-				request.addEventListener('readystatechange', () => {
-					if (request.readyState !== 4) {
-						return;
-					}
-					if (request.status === 200) {
-						resolve();
-					} else {
-						reject(request.status);
-					}
+            const postData = formData => {
+                return fetch('./server.php', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: formData
 				});
-                request.open('POST', './server.php');
-				request.setRequestHeader('Content-Type', 'application/json');
-				request.send(JSON.stringify(body));
-            });
-            promise(body)
-            .then(() => {
+			};
+            postData(formData)
+            .then(response => {
+                if (response.status !== 200) throw new Error('status network not 200!');
                 statusMessage.textContent = successMessage;
             })
-            .catch(() => {
+            .catch(error => {
 			    statusMessage.textContent = errorMessage;
+                console.error(error);
 				});
         });
     };
