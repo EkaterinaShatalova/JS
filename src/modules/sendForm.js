@@ -9,24 +9,31 @@ const sendForm = () => {
         event.target.appendChild(statusMessage);
         statusMessage.textContent = loadMessage;
         const formData = new FormData(event.target);
+        const body = {};
+        formData.forEach((val, key) => {
+            body[key] = val;
+        });
         event.target.reset();
-        const postData = formData => {
+        const postData = body => {
             return fetch('./server.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: formData
+                body: JSON.stringify(body)
             });
         };
-        postData(formData)
-        .then(response => {
-            if (response.status !== 200) throw new Error('status network not 200!');
-            statusMessage.textContent = successMessage;
-        })
-        .catch(error => {
-            statusMessage.textContent = errorMessage;
-            console.error(error);
+        postData(body)
+            .then(response => {
+                if (response.status !== 200) throw new Error('status network not 200!');
+                statusMessage.textContent = successMessage;
+            })
+            .catch(error => {
+                statusMessage.textContent = errorMessage;
+                console.error(error);
+            })
+            .finally(() => {
+                setTimeout(() => statusMessage.textContent = '', 3000);
             });
     });
 };
