@@ -25,5 +25,6 @@ function countTimer(deadline) {
             timerSeconds.textContent = '00';
         }
     };
+    updateClock();
 };
 export default countTimer;
