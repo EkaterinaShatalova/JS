@@ -1,6 +1,6 @@
 const slider = () => {
     const topSlider = document.querySelector('.top-slider');
-    const item = topSlider.querySelectorAll('.item')
+    const item = topSlider.querySelectorAll('.item');
     table = document.querySelectorAll('.table');
     let currentSlide = 0;
     let interval;
@@ -28,6 +28,6 @@ const slider = () => {
         clearInterval(interval);
     };
     startSlide(3000);
-}
+};
 
 export default slider;
