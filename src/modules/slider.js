@@ -1,7 +1,7 @@
 const slider = () => {
     const topSlider = document.querySelector('.top-slider');
     const item = topSlider.querySelectorAll('.item');
-    table = document.querySelectorAll('.table');
+    const table = document.querySelectorAll('.table');
     let currentSlide = 0;
     let interval;
     table[0].classList.add('active');

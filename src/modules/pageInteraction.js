@@ -37,7 +37,7 @@ const pageInteraction = () => {
         });
     });
     document.addEventListener('scroll', () => {
-        if (belowServices(services)) {
+        if (pageYOffset  > services.getBoundingClientRect().bottom) {
             btnUp.style.display = 'block';
         } else {
             btnUp.style.display = 'none';
