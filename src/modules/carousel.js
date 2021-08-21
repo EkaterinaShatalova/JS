@@ -13,7 +13,8 @@ const carousel = () => {
     const removeClass = (elem, index, strClass) => {
             elem[index].classList.remove(strClass);
         };
-    if (!window.matchMedia('(max-width: 767px)').matches) {
+
+    if (!window.matchMedia('(max-width: 992px)').matches) {
       removeClass(image, 1, 'item-none');
       removeClass(image, 2, 'item-none');
       col.classList.remove('col-sm-12');
@@ -24,10 +25,28 @@ const carousel = () => {
       addClass(image, 1, 'item-none');
       addClass(image, 2, 'item-none');
     }
-arrows.addEventListener('click', event => {
+    window.addEventListener('resize', () => {
+        if (!(window.matchMedia('(max-width: 992px)').matches)) {
+        removeClass(image, 1, 'item-none');
+        removeClass(image, 2, 'item-none');
+        col.classList.remove('col-sm-12');
+        col.classList.remove('col-md-4');
+        col.classList.add('col-sm-6');
+        col.classList.add('col-md-4');
+        } else {
+            addClass(image, 1, 'item-none');
+            addClass(image, 2, 'item-none');
+            col.classList.remove('col-sm-6');
+            col.classList.remove('col-md-4');
+            col.classList.add('col-sm-12');
+            col.classList.add('col-md-4');
+        }
+    });
+    
+    arrows.addEventListener('click', event => {
             event.preventDefault();
             const target = event.target;
-            if(window.matchMedia('(max-width: 767px)').matches) {
+            if(window.matchMedia('(max-width: 992px)').matches) {
               if (target.matches('.arrow-right')) {
                 removeClass(image, firstSlide, 'show');
                 if (firstSlide === image.length - 1) {
