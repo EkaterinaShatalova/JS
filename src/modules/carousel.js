@@ -3,24 +3,76 @@ const carousel = () => {
     const image = servicesElements.querySelectorAll('.element');
     const arrows = document.querySelector('.services-arrow')
     const servicesCarousel = document.querySelector('.services-carousel')
+    const col = document.querySelector('.col');
     let firstSlide = 0;
     let mediumSlide = 1;
     let lastSlide = 2;
-    const addShow = (elem, index, strClass) => {
+    const addClass = (elem, index, strClass) => {
             elem[index].classList.add(strClass);
         };
-    const removeShow = (elem, index, strClass) => {
+    const removeClass = (elem, index, strClass) => {
             elem[index].classList.remove(strClass);
         };
-    arrows.addEventListener('click', event => {
+    if (!window.matchMedia('(max-width: 767px)').matches) {
+      removeClass(image, 1, 'item-none');
+      removeClass(image, 2, 'item-none');
+      col.classList.remove('col-sm-12');
+      col.classList.remove('col-md-4');
+      col.classList.add('col-sm-6');
+      col.classList.add('col-md-4');
+    } else {
+      addClass(image, 1, 'item-none');
+      addClass(image, 2, 'item-none');
+    }
+arrows.addEventListener('click', event => {
             event.preventDefault();
             const target = event.target;
+            if(window.matchMedia('(max-width: 767px)').matches) {
+              if (target.matches('.arrow-right')) {
+                removeClass(image, firstSlide, 'show');
+                if (firstSlide === image.length - 1) {
+                    firstSlide = 0;
+                } else {
+                    firstSlide++;
+                }
+                addClass(image, firstSlide, 'show');
+            } else if (target.matches('.arrow-left')) {
+              removeClass(image, firstSlide, 'show');
+                if (firstSlide === 0) {
+                    firstSlide = image.length - 1;
+                } else {
+                    firstSlide--;
+                }
+                addClass(image, firstSlide, 'show');
+          } servicesCarousel.textContent = '';
+              servicesCarousel.innerHTML = `
+                <div class="col-sm-12">
+                  <div class="element relative">
+                <a
+                  class="absolute fancyboxModal"
+                  href="#application"
+                  data-application= ${image[firstSlide].firstElementChild.dataset.application}
+                ></a>
+                <div class="img-wrapper">
+                  <img src="${image[firstSlide].children[1].firstElementChild.src}"/>
+                </div>
+                <div class="element-content">
+                  <div class="title-h5 upper">${image[firstSlide].children[2].firstElementChild.innerText}</div>
+                  <div class="element-price">${image[firstSlide].children[2].firstElementChild.nextElementSibling.innerText}</div>
+                  <div class="text">
+                    ${image[firstSlide].children[2].lastElementChild.innerText}
+                  </div>
+                </div>
+              </div>
+                </div>`
+        }
+          else {
             let map = new Map();
             map.set(0, firstSlide)
             map.set(1, mediumSlide)
             map.set(2, lastSlide)
             if (target.matches('.arrow-right')) {
-                addShow(image, firstSlide, 'show');
+                addClass(image, firstSlide, 'show');
                 if (lastSlide === image.length - 1) {
                     lastSlide = 0;
                 } else {
@@ -36,7 +88,7 @@ const carousel = () => {
                 } else {
                     firstSlide++;
                 }
-                removeShow(image, lastSlide, 'show');
+                removeClass(image, lastSlide, 'show');
                 map.set(0, firstSlide)
                 map.set(1, mediumSlide)
                 map.set(2, lastSlide)
@@ -51,8 +103,8 @@ const carousel = () => {
                 } else {
                     mediumSlide--;
                 }
-                addShow(image, lastSlide, 'show');
-                removeShow(image, firstSlide, 'show');
+                addClass(image, lastSlide, 'show');
+                removeClass(image, firstSlide, 'show');
                 if (lastSlide === 0) {
                     lastSlide = image.length - 1;
                 } else {
@@ -121,7 +173,8 @@ const carousel = () => {
                 </div>
               </div>
                </div>
-    `
+    `}
+
 })
 };
 
